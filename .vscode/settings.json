@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.port": 5501,
+    "emmet.includeLanguages": {
+        "razor":"html",
+        "aspnetcorerazor":"html"
+       }
+}

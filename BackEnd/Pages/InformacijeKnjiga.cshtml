@@ -1,0 +1,37 @@
+﻿@page "{IdKnjige}"
+@using Projekat.Pages
+@model InformacijeKnjigaModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Knjiga";
+
+}
+@section Scripts
+{
+  <script src="~/Scripts/Script.js"></script>
+}
+@section Styles{
+<link rel="stylesheet" href="~/Styles/Style.css">
+}
+<div class="divZaKnjigu">@{
+        if (Model.slika != null)
+        {
+            var base64 = Convert.ToBase64String(Model.slika);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <img src="@imgSrc" class="slika" onclick="promenaSlike(@Model.knjiga.ID)"/>
+        }
+        else
+        {
+            <img src="" class="slika" onclick="promenaSlike(@Model.knjiga.ID)" alt="Nema slike za ovu knjigu!"/>
+        }
+        }
+    
+
+    <div class="insideDiv"><label class="lNaslov" onclick="promenaNaslova(@Model.knjiga.ID)">@Model.knjiga.Naslov</label>
+        <label class="lAutor" onclick="promenaAutora(@Model.knjiga.ID)">@Model.knjiga.Autor</label>
+        <label class="lIzdavac" onclick="promenaIzdavaca(@Model.knjiga.ID)">@Model.knjiga.Izdavac.Naziv</label>
+        <label class="lKolicina" onclick="promenaKolicine(@Model.knjiga.ID)">Kolicina: @Model.knjiga.TrenKolicina</label>
+        <p class="par" onclick="promenaParagrafa(@Model.knjiga.ID)">@Model.knjiga.Opis</p>
+    </div>
+
+</div>

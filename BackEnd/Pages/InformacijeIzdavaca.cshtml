@@ -1,0 +1,12 @@
+﻿@page "{Id}"
+@using Projekat.Pages
+@model InformacijeIzdavacaModel
+@{
+    Layout="_Layout";
+    ViewData["Title"]="Izdavac";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Styles/Style.css" >
+}
+<h2>O izdavaču:</h2>
+<div class="center" >@Model.deskripcija </div>

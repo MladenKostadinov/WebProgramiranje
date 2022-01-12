@@ -1,0 +1,75 @@
+body{
+  display: flex;
+  flex-direction: column;
+    background-color: beige;
+}
+p{
+  border: 1px solid black;
+}
+.center {
+    display: flex;
+    margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    padding: 10px;
+  }
+  h2{
+    text-align: center;
+  }
+  .divZaKnjigu{
+      display: flex;
+      margin: auto;
+      width: auto;
+      border: 3px solid black;
+      padding: 10px;
+  }
+  .insideDiv{
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-left: 10px;
+    border: 1px solid black;
+    padding-right: 10px;
+  }
+  img{
+    width: 50%;
+    height: 50%;
+  }
+label{
+  word-wrap: break-word; 
+ 
+}
+@media screen and (min-width: 1500px) {
+  p{
+    text-align:left;
+    /* max-width: 250px; */
+    height: 100%;
+    width: 100%;
+    overflow-wrap: anywhere;
+   
+}
+}
+@media screen and (max-width: 1499px) {
+  p{
+    text-align:left;
+    /* max-width: 250px; */
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+    overflow-wrap: anywhere;
+}
+}
+@media screen and (min-width: 1100px) {
+.divZaKnjigu{
+  width: 50%;
+}
+}
+
+@media screen and (min-width: 1200px) {
+  p{
+    min-height: 200px;
+   
+}
+}
