@@ -24,55 +24,89 @@ namespace Projekat.Controllers
         [Route("PribaviSveBiblioteke")]
         public async Task<ActionResult<List<Biblioteka>>> PribaviSveBiblioteke()
         {
-            var x =await bibliotekaContext.Biblioteke.Include(p => p.Knjige).ThenInclude(q=>q.Izdavac).ToListAsync();
-            if(x!=null)
-            return x;
-            
-            return BadRequest("Ne postoji ni jedna biblioteka!");
+            try
+            {
+                var x = await bibliotekaContext.Biblioteke.Include(p => p.Knjige).ThenInclude(q => q.Izdavac).ToListAsync();
+                if (x != null)
+                    return x;
+
+                return BadRequest("Ne postoji ni jedna biblioteka!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         [HttpPost]
         [Route("DodajNovuBiblioteku")]
         public async Task<ActionResult> DodajBiblioteku([FromBody] Biblioteka biblioteka)
         {
-            bibliotekaContext.Biblioteke.Add(biblioteka);
-            await bibliotekaContext.SaveChangesAsync();
+            try
+            {
+                if (biblioteka != null)
+                {
+                    bibliotekaContext.Biblioteke.Add(biblioteka);
+                    await bibliotekaContext.SaveChangesAsync();
 
-            return Ok("Uspesno dodata biblioteka: " + biblioteka.Ime);
+                    return Ok("Uspesno dodata biblioteka: " + biblioteka.Ime);
+                }
+                else return BadRequest("Greska!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
-        
+
         [HttpDelete]
         [Route("BrisiBiblioteku")]
         public async Task<ActionResult> BrisiBiblioteku(int IdBiblioteke)
         {
-            var biblioteka = await bibliotekaContext.Biblioteke.FindAsync(IdBiblioteke);
-
-            if (biblioteka != null)
+            try
             {
-                var knjige = await bibliotekaContext.Knjige.Where(p => p.BibliotekaOveKnjige.ID == IdBiblioteke).ToListAsync();
-                foreach (var knjiga in knjige)
+                var biblioteka = await bibliotekaContext.Biblioteke.FindAsync(IdBiblioteke);
+
+                if (biblioteka != null)
                 {
-                    bibliotekaContext.Knjige.Remove(knjiga);
+                    var knjige = await bibliotekaContext.Knjige.Where(p => p.BibliotekaOveKnjige.ID == IdBiblioteke).ToListAsync();
+                    foreach (var knjiga in knjige)
+                    {
+                        bibliotekaContext.Knjige.Remove(knjiga);
+                    }
+
+                    bibliotekaContext.Biblioteke.Remove(biblioteka);
+                    await bibliotekaContext.SaveChangesAsync();
+                    return Ok("Uspesno obrisana biblioteka: " + biblioteka.Ime);
                 }
-
-                bibliotekaContext.Biblioteke.Remove(biblioteka);
-                await bibliotekaContext.SaveChangesAsync();
-                return Ok("Uspesno obrisana biblioteka: " + biblioteka.Ime);
+                return Ok("Ne postoji biblioteka sa ID: " + IdBiblioteke);
             }
-
-
-            return Ok("Ne postoji biblioteka sa ID: " + IdBiblioteke);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         [HttpGet]
         [Route("Provera")]
         public async Task<ActionResult> Provera(int m, int n, int IdBiblioteke)
         {
-            var biblioteka = await bibliotekaContext.Biblioteke.FindAsync(IdBiblioteke);
-            int formula = n + m * biblioteka.N;
-            var knjige = await bibliotekaContext.Knjige.Where(p => p.BibliotekaOveKnjige.ID == IdBiblioteke).ToListAsync();
+            try
+            {
+                var biblioteka = await bibliotekaContext.Biblioteke.FindAsync(IdBiblioteke);
+                if (biblioteka != null)
+                {
+                    int formula = n + m * biblioteka.N;
+                    var knjige = await bibliotekaContext.Knjige.Where(p => p.BibliotekaOveKnjige.ID == IdBiblioteke).ToListAsync();
 
-            return Ok("M: " + knjige[formula].M + " N: " + knjige[formula].N);
+                    return Ok("M: " + knjige[formula].M + " N: " + knjige[formula].N);
+                }
+                else return BadRequest("Greska!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
-       
+
     }
 }
 

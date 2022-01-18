@@ -4,6 +4,7 @@
     background-image: linear-gradient(to right, rgba(255, 196, 0, 0.356) , rgba(0, 68, 255, 0.493));
     border: 1px solid black;
     margin-top: 10px;
+    min-width: fit-content;
 }
 .divLeft{
 flex-basis: 200px;
@@ -27,7 +28,7 @@ flex-shrink: 0;
     height: fit-content;
 }
 .knjiga:hover,button:hover,input:hover,select:hover {
-    background-color: rgb(207, 224, 250);
+    background-color: rgb(207, 224, 250) !important;
   }
 body{
     display: flex;

@@ -55,7 +55,7 @@ label{
   p{
     text-align:left;
     /* max-width: 250px; */
-    overflow: scroll;
+    /*overflow: scroll;*/
     height: 100%;
     width: 100%;
     overflow-wrap: anywhere;

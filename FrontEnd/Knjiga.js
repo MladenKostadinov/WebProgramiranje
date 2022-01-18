@@ -1,4 +1,4 @@
-import { Izdavac } from "./Izdavac.js";
+
 export class Knjiga {
 
     constructor(id, m, n, naslov, trenKolicina, autor, izdavac, slika) {
@@ -47,7 +47,7 @@ export class Knjiga {
         this.minContainer.appendChild(pom);
 
         pom = document.createElement("label");
-        if (this.trenKolicina != 0) pom.innerHTML = "Kolicina: "+this.trenKolicina;
+        if (this.trenKolicina != 0) pom.innerHTML = "Kolicina: " + this.trenKolicina;
         else pom.innerHTML = "-----";
         pom.className += "trenKolicina";
         this.minContainer.appendChild(pom);
